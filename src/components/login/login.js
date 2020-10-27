@@ -10,10 +10,10 @@ export class Login extends React.Component {
           <span className="heading">АВТОРИЗАЦИЯ</span>
           <div className="form-group">
             <input
-              type="text"
+              type="email"
               className="form-control"
               id="loginInput"
-              placeholder="Логин"
+              placeholder="E-MAIL"
             ></input>
           </div>
           <div className="form-group help">
@@ -21,7 +21,7 @@ export class Login extends React.Component {
               type="password"
               className="form-control"
               id="passwordInput"
-              placeholder="Пароль"
+              placeholder="PASSWORD"
             ></input>
           </div>
           <div className="form-group">
@@ -32,13 +32,11 @@ export class Login extends React.Component {
             >
               ВХОД
             </button>
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={this.handleReg}
-            >
-              <Link to="/register">РЕГИСТРАЦИЯ</Link>
-            </button>
+            <Link to="/register">
+              <button type="button" className="btn btn-primary">
+                РЕГИСТРАЦИЯ
+              </button>
+            </Link>
           </div>
         </form>
       </div>

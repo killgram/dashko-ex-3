@@ -1,4 +1,4 @@
-import * as firebase from 'firebase'
+var firebase = require('firebase')
 
 firebase.initializeApp({
   apiKey: 'AIzaSyA4YJIjhSpQV7a7-SssThNnAYc5lG6dUTM',

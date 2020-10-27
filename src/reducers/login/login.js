@@ -8,7 +8,6 @@ const initialState = {
   isLogin: false,
   isFetching: false,
   error: '',
-  path: '/',
 }
 
 export function loginReducer(state = initialState, action) {

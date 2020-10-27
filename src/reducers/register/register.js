@@ -5,7 +5,7 @@ import {
 } from '../../actions/register/registerAction'
 
 const initialState = {
-  login: '',
+  email: '',
   password: '',
 }
 

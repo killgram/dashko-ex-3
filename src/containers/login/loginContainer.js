@@ -5,12 +5,12 @@ import { handleLogin } from '../../actions/login/loginAction'
 
 class LoginContainer extends React.Component {
   render() {
-    const { loginReducer, handleLogin } = this.props
+    const { login, handleLogin } = this.props
     return (
       <Login
-        error={loginReducer.error}
-        isFetching={loginReducer.isFetching}
-        isLogin={loginReducer.isLogin}
+        error={login.error}
+        isFetching={login.isFetching}
+        isLogin={login.isLogin}
         handleLogin={handleLogin}
       />
     )
@@ -19,7 +19,7 @@ class LoginContainer extends React.Component {
 
 const mapStateToProps = (store) => {
   return {
-    loginReducer: store.loginReducer,
+    login: store.login,
   }
 }
 

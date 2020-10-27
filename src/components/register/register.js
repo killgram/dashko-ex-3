@@ -3,6 +3,21 @@ import { Link } from 'react-router-dom'
 import './register.css'
 
 export class Register extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      eValue: '',
+    }
+  }
+
+  inputEmail = (e) => {
+    this.setState({
+      eValue: e.currentTarget.value,
+    })
+  }
+  inputPassword = (e) => {
+    // const { pValue } = e.currentTarget
+  }
   render() {
     return (
       <div className="col-md-offset-3 col-md-4 mx-auto">
@@ -13,7 +28,8 @@ export class Register extends React.Component {
               type="text"
               className="form-control"
               id="login"
-              placeholder="Логин"
+              placeholder="E-MAIL"
+              onChange={this.inputEmail}
             ></input>
           </div>
           <div className="form-group help">
@@ -21,26 +37,34 @@ export class Register extends React.Component {
               type="password"
               className="form-control"
               id="password"
-              placeholder="Пароль"
+              placeholder="PASSWORD"
+              onChange={this.inputPassword}
             ></input>
           </div>
-          <div className="form-group help">
+          {/* <div className="form-group help">
             <input
               type="password"
               className="form-control"
               id="passwordAgain"
-              placeholder="Повторите пароль"
+              placeholder="CONFIRM PASSWORD"
             ></input>
-          </div>
+          </div> */}
           <div className="form-group">
-            <button type="button" className="btn btn-primary">
-              РЕГИСТРАЦИЯ
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={this.props.createUser}
+            >
+              Зарегистрировать
             </button>
-            <button type="button" className="btn btn-primary" id="hasLogin">
-              <Link to="/">back</Link>
-            </button>
+            <Link to="/">
+              <button type="button" className="btn btn-primary" id="hasLogin">
+                back
+              </button>
+            </Link>
           </div>
         </form>
+        <div id="firebaseui-auth-container"></div>
       </div>
     )
   }
