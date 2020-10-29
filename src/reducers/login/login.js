@@ -5,23 +5,18 @@ import {
 } from '../../actions/login/loginAction'
 
 const initialState = {
-  isLogin: false,
-  isFetching: false,
   error: '',
+  isLogin: false,
 }
 
 export function loginReducer(state = initialState, action) {
   switch (action.type) {
     case LOGIN_REQUEST:
-      return { ...state, isFetching: true }
+      return { ...state }
     case LOGIN_SUCCESS:
-      return {
-        ...state,
-        isFetching: false,
-        isLogin: true,
-      }
+      return { ...state, isLogin: true }
     case LOGIN_FAIL:
-      return { ...state, isFetching: false, error: action.payload.message }
+      return { ...state, error: action.error }
     default:
       return state
   }

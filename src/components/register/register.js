@@ -7,6 +7,7 @@ export class Register extends React.Component {
     super(props)
     this.state = {
       eValue: '',
+      pValue: '',
     }
   }
 
@@ -16,7 +17,12 @@ export class Register extends React.Component {
     })
   }
   inputPassword = (e) => {
-    // const { pValue } = e.currentTarget
+    this.setState({
+      pValue: e.currentTarget.value,
+    })
+  }
+  regClick = () => {
+    this.props.createUser(this.state.eValue, this.state.pValue)
   }
   render() {
     return (
@@ -41,19 +47,11 @@ export class Register extends React.Component {
               onChange={this.inputPassword}
             ></input>
           </div>
-          {/* <div className="form-group help">
-            <input
-              type="password"
-              className="form-control"
-              id="passwordAgain"
-              placeholder="CONFIRM PASSWORD"
-            ></input>
-          </div> */}
           <div className="form-group">
             <button
               type="button"
               className="btn btn-primary"
-              onClick={this.props.createUser}
+              onClick={this.regClick}
             >
               Зарегистрировать
             </button>

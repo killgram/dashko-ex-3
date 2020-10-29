@@ -6,18 +6,11 @@ import { createUser } from '../../actions/register/registerAction'
 class RegisterContainer extends React.Component {
   render() {
     const { createUser, register } = this.props
-    return (
-      <Register
-        email={register.email}
-        password={register.password}
-        createUser={createUser}
-      />
-    )
+    return <Register error={register.error} createUser={createUser} />
   }
 }
 
 const mapStateToProps = (store) => {
-  console.log(store)
   return {
     register: store.register,
   }

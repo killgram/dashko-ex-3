@@ -3,5 +3,11 @@
   "rules": {
     "jsx-quotes": [1, "prefer-double"]
   },
-  "plugins": ["prettier"]
+  "plugins": ["prettier"],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": true
+
+  }
 }

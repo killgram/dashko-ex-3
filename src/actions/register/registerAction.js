@@ -11,8 +11,24 @@ export function createUser(email, password) {
       email: email,
       password: password,
     })
-    console.log(email)
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .catch(function (error) {
+        if (error.message) {
+          dispatch({
+            type: REGISTER_FAIL,
+            error: error.message,
+          })
+        }
+      })
 
-    // firebase.auth().createUserWithEmailAndPassword('asd@qwerty.com', 'password')
+    firebase.auth().onAuthStateChanged(function (user) {
+      if (user) {
+        dispatch({
+          type: REGISTER_SUCCESS,
+        })
+      }
+    })
   }
 }

@@ -5,8 +5,8 @@ import {
 } from '../../actions/register/registerAction'
 
 const initialState = {
-  email: '',
-  password: '',
+  error: '',
+  isLogin: false,
 }
 
 export function registerReducer(state = initialState, action) {
@@ -14,9 +14,9 @@ export function registerReducer(state = initialState, action) {
     case REGISTER_REQUEST:
       return { ...state }
     case REGISTER_SUCCESS:
-      return { ...state }
+      return { ...state, isLogin: true }
     case REGISTER_FAIL:
-      return { ...state }
+      return { ...state, error: action.error }
     default:
       return state
   }

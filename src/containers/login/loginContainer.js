@@ -1,17 +1,18 @@
 import React from 'react'
 import { connect } from 'react-redux'
+
 import { Login } from '../../components/login/login'
 import { handleLogin } from '../../actions/login/loginAction'
 
 class LoginContainer extends React.Component {
   render() {
     const { login, handleLogin } = this.props
+
     return (
       <Login
         error={login.error}
-        isFetching={login.isFetching}
-        isLogin={login.isLogin}
         handleLogin={handleLogin}
+        isLogin={login.isLogin}
       />
     )
   }
@@ -25,7 +26,7 @@ const mapStateToProps = (store) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    handleLogin: () => dispatch(handleLogin()),
+    handleLogin: (email, password) => dispatch(handleLogin(email, password)),
   }
 }
 

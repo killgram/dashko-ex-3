@@ -1,8 +1,30 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+
 import './login.css'
 
 export class Login extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      eValue: '',
+      pValue: '',
+    }
+  }
+  eChange = (e) => {
+    this.setState({
+      eValue: e.currentTarget.value,
+    })
+  }
+  pChange = (e) => {
+    this.setState({
+      pValue: e.currentTarget.value,
+    })
+  }
+  authLogin = () => {
+    this.props.handleLogin(this.state.eValue, this.state.pValue)
+  }
+
   render() {
     return (
       <div className="col-md-offset-3 col-md-4 mx-auto">
@@ -14,6 +36,7 @@ export class Login extends React.Component {
               className="form-control"
               id="loginInput"
               placeholder="E-MAIL"
+              onChange={this.eChange}
             ></input>
           </div>
           <div className="form-group help">
@@ -22,13 +45,14 @@ export class Login extends React.Component {
               className="form-control"
               id="passwordInput"
               placeholder="PASSWORD"
+              onChange={this.pChange}
             ></input>
           </div>
           <div className="form-group">
             <button
               type="button"
               className="btn btn-primary"
-              onClick={this.props.handleLogin}
+              onClick={this.authLogin}
             >
               ВХОД
             </button>
