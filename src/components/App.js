@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom'
 import LoginContainer from '../containers/login/loginContainer'
 import RegisterContainer from '../containers/register/registerContainer'
-import Main from '../containers/main/main'
+import ApiContainer from '../containers/api/apiContainer'
 import { store } from '../store/configureStore'
 
 var firebase = require('firebase')
@@ -26,41 +26,31 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isLogin: '',
+      isLogin: false,
     }
   }
-  static getDerivedStateFromProps(props, state) {
-    firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-        // User is signed in.
-        console.log('вошел')
-        return (state.isLogin = true)
-      } else {
-        // User is signed out.
-        console.log('покинул кафе')
-      }
-    })
-    return null
-  }
-  shouldComponentUpdate() {
-    console.log('blyat')
-  }
-  componentDidUpdate() {
-    console.log('update blyat')
+
+  componentDidMount() {
+    if (localStorage.getItem('isLogin') === 'true') {
+      this.setState({
+        isLogin: localStorage.getItem('isLogin'),
+      })
+    }
+    if (localStorage.getItem('isLogin') === 'false') {
+      console.log('не авторизован')
+    }
   }
 
   render() {
     const { isLogin } = this.state
-    console.log(isLogin)
     return (
       <Router>
         <Switch>
-          {/* <Route exact path="/" component={LoginContainer} /> */}
           <Route exact path="/">
             {isLogin ? <Redirect to="/main" /> : <LoginContainer />}
           </Route>
           <Route path="/register" component={RegisterContainer} />
-          <Route path="/main" component={Main} />
+          <Route path="/main" component={ApiContainer} />
         </Switch>
       </Router>
     )

@@ -25,6 +25,8 @@ export function handleLogin(email, password) {
 
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
+        localStorage.setItem('isLogin', true)
+        window.location = '/'
         dispatch({
           type: LOGIN_SUCCESS,
         })
