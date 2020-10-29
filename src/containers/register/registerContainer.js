@@ -12,7 +12,7 @@ class RegisterContainer extends React.Component {
 
 const mapStateToProps = (store) => {
   return {
-    register: store.register,
+    register: store.login,
   }
 }
 

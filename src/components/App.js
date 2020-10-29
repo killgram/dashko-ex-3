@@ -5,10 +5,12 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom'
+import { connect } from 'react-redux'
+
 import LoginContainer from '../containers/login/loginContainer'
 import RegisterContainer from '../containers/register/registerContainer'
 import ApiContainer from '../containers/api/apiContainer'
-import { store } from '../store/configureStore'
+import { setStatus } from '../actions/login/loginAction'
 
 var firebase = require('firebase')
 
@@ -23,38 +25,50 @@ firebase.initializeApp({
 })
 
 class App extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      isLogin: false,
-    }
-  }
-
   componentDidMount() {
     if (localStorage.getItem('isLogin') === 'true') {
-      this.setState({
-        isLogin: localStorage.getItem('isLogin'),
-      })
-    }
-    if (localStorage.getItem('isLogin') === 'false') {
-      console.log('не авторизован')
+      this.props.setStatus()
     }
   }
 
   render() {
-    const { isLogin } = this.state
+    let { isLogin, regLogin } = this.props
+    if (regLogin) {
+      isLogin = regLogin
+    }
     return (
       <Router>
         <Switch>
           <Route exact path="/">
             {isLogin ? <Redirect to="/main" /> : <LoginContainer />}
           </Route>
-          <Route path="/register" component={RegisterContainer} />
-          <Route path="/main" component={ApiContainer} />
+          <Route exact path="/register">
+            {isLogin ? <Redirect to="/main" /> : <RegisterContainer />}
+          </Route>
+          <Route exact path="/main">
+            {!isLogin ? (
+              <Redirect to="/" />
+            ) : (
+              <ApiContainer isLogin={isLogin} />
+            )}
+          </Route>
         </Switch>
       </Router>
     )
   }
 }
 
-export default App
+const mapStateToProps = (store) => {
+  return {
+    isLogin: store.login.isLogin,
+    regLogin: store.register.isLogin,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setStatus: () => dispatch(setStatus()),
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

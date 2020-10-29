@@ -4,6 +4,8 @@ export const REGISTER_REQUEST = 'REGISTER_REQUEST'
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 export const REGISTER_FAIL = 'REGISTER_FAIL'
 
+export const AUTH_SUCCESS = 'AUTH_SUCCESS'
+
 export function createUser(email, password) {
   return function (dispatch) {
     dispatch({
@@ -25,8 +27,14 @@ export function createUser(email, password) {
 
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
+        localStorage.setItem('isLogin', true)
         dispatch({
           type: REGISTER_SUCCESS,
+          isLogin: true,
+        })
+        dispatch({
+          type: AUTH_SUCCESS,
+          isLogin: true,
         })
       }
     })

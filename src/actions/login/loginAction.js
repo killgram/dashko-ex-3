@@ -3,6 +3,8 @@ var firebase = require('firebase')
 export const LOGIN_REQUEST = 'LOGIN_REQUEST'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 export const LOGIN_FAIL = 'LOGIN_FAIL'
+export const AUTH_SUCCESS = 'AUTH_SUCCESS'
+export const LOG_OUT = 'LOG_OUT'
 
 export function handleLogin(email, password) {
   return function (dispatch) {
@@ -22,15 +24,25 @@ export function handleLogin(email, password) {
           })
         }
       })
-
     firebase.auth().onAuthStateChanged(function (user) {
       if (user) {
         localStorage.setItem('isLogin', true)
-        window.location = '/'
         dispatch({
           type: LOGIN_SUCCESS,
+          isLogin: true,
         })
       }
     })
+  }
+}
+
+export function setStatus() {
+  return function (dispatch) {
+    if (localStorage.getItem('isLogin') === 'true') {
+      dispatch({
+        type: AUTH_SUCCESS,
+        isLogin: true,
+      })
+    }
   }
 }
