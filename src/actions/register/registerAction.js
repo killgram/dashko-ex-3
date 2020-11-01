@@ -29,6 +29,7 @@ export function createUser(email, password) {
       if (user) {
         localStorage.setItem('isLogin', true)
         localStorage.setItem('user', user.email.split('@')[0])
+        localStorage.setItem('uid', user.uid)
         dispatch({
           type: REGISTER_SUCCESS,
           isLogin: true,

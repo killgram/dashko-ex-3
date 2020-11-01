@@ -3,12 +3,7 @@ import { connect } from 'react-redux'
 import NavContainer from './NavContainer'
 import TodoContainer from './todoContainer'
 import { handleLogout } from '../../actions/api/logoutAction'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
 class ApiContainer extends React.Component {
   render() {

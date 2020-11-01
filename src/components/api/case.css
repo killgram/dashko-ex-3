@@ -1,0 +1,31 @@
+#selectSort{
+    width: 230px;
+    margin: 20px auto;
+    text-align-last: center;
+    text-align: center;
+}
+#sortList{
+    border-bottom: 1px solid black;
+    margin-bottom: 0;
+}
+#todo-case{
+    height: 400px;
+    margin-bottom: 0;
+}
+#add-todo{
+    margin-bottom: 0;
+    height: 60px;
+    border-top: 1px solid black;
+    width:280px;
+    margin-left:10px;
+    margin-right: 10px;
+}
+#input-field{
+    width: 280px;
+    margin-top:10px;
+    text-align: center;
+}
+#add-case{
+    border-radius: 30px;
+    margin-left: 120px;
+}

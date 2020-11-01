@@ -32,12 +32,7 @@ class App extends Component {
   }
 
   render() {
-    let { isLogin, regLogin } = this.props
-    // if (regLogin) {
-    //   isLogin = regLogin
-    // } else {
-    //   regLogin = isLogin
-    // }
+    let { isLogin } = this.props
 
     return (
       <Router>
