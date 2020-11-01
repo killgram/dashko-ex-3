@@ -33,9 +33,12 @@ class App extends Component {
 
   render() {
     let { isLogin, regLogin } = this.props
-    if (regLogin) {
-      isLogin = regLogin
-    }
+    // if (regLogin) {
+    //   isLogin = regLogin
+    // } else {
+    //   regLogin = isLogin
+    // }
+
     return (
       <Router>
         <Switch>

@@ -12,17 +12,11 @@ import {
 
 class ApiContainer extends React.Component {
   render() {
-    let { isLogin } = this.props
-    console.log(this.props)
     return (
-      <Router>
-        <Switch>
-          <Route exact path="/main">
-            <NavContainer />
-            <TodoContainer />
-          </Route>
-        </Switch>
-      </Router>
+      <Route exact path="/main">
+        <NavContainer username={localStorage.getItem('user')} />
+        <TodoContainer />
+      </Route>
     )
   }
 }

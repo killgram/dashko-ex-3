@@ -1,0 +1,16 @@
+.userBox{
+    color: blue;
+    text-decoration: none;
+    font-weight: bold;
+}
+.userBox:hover{
+    color: blue;
+    text-decoration: none;
+}
+.container{
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.btn{
+    margin-left: 20px;
+}

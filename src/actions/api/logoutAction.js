@@ -10,27 +10,17 @@ export function handleLogout() {
   return function (dispatch) {
     dispatch({
       type: LOGOUT_REQUEST,
-      isLogin: true,
     })
     firebase
       .auth()
       .signOut()
       .then(function () {
         localStorage.clear()
-        console.log(localStorage.length)
         dispatch({
           type: LOG_OUT,
           isLogin: false,
+          regLogin: false,
         })
       })
-    // firebase.auth().onAuthStateChanged(function (user) {
-    //   if (!localStorage.getItem('isLogin')) {
-    //     console.log('должен выйти')
-    //     dispatch({
-    //       type: AUTH_SUCCESS,
-    //       isLogin: false,
-    //     })
-    //   }
-    // })
   }
 }

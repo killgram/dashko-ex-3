@@ -6,9 +6,9 @@ import { handleLogout } from '../../actions/api/logoutAction'
 
 class NavContainer extends React.Component {
   render() {
-    const { handleLogout } = this.props
+    const { handleLogout, username } = this.props
 
-    return <NavMenu handleLogout={handleLogout} />
+    return <NavMenu handleLogout={handleLogout} username={username} />
   }
 }
 

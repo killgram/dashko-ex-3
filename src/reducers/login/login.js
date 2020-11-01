@@ -22,7 +22,7 @@ export function loginReducer(state = initialState, action) {
     case AUTH_SUCCESS:
       return { ...state, isLogin: true }
     case LOG_OUT:
-      return { ...state, isLogin: false }
+      return { ...state, isLogin: false, regLogin: false }
     default:
       return state
   }
