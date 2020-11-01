@@ -7,18 +7,20 @@ h4{
     margin-bottom: 0;
 }
 #add-task{
-    /* margin:15px 30px 0 30px; */
-    /* background-color: coral */
     border-top: 1px solid black;
     margin-left: 10px;
     margin-right: 10px;
 }
 #input-task{
     width:250px;
+    text-align: center;
 }
 .form-check{
     margin: auto;
 }
 #row-add{
     margin-top:15px
+}
+#add-btn{
+    border-radius: 30px;
 }

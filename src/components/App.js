@@ -24,6 +24,8 @@ firebase.initializeApp({
   appId: '1:1049231229852:web:a90d3f66ca53815d887e59',
 })
 
+export var db = firebase.firestore()
+
 class App extends Component {
   componentDidMount() {
     if (localStorage.getItem('isLogin') === 'true') {

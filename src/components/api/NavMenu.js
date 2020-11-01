@@ -10,8 +10,8 @@ export class NavMenu extends React.Component {
   render() {
     const { username } = this.props
     return (
-      <div className="container ">
-        <div className="row align-items-center justify-content-end">
+      <div className="container">
+        <div className="row align-items-center justify-content-end  col-10">
           <span>
             Привет, <a className="userBox">{username}</a>
           </span>
