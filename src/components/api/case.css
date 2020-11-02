@@ -29,3 +29,37 @@
     margin-left: 120px;
     margin-top:5px
 }
+#todo-case .case-custom-btn{
+    width:100%;
+    margin:0;
+    border-radius: 0;
+    text-align: start;
+    padding-left: 20px;
+    font-size: 15px;
+}
+#todo-case .case-custom-btn:hover{
+    background-color: rgba(245, 243, 243, 1);
+}
+#todo-case .case-delete-btn{
+    font-size: 12px;
+    position: absolute;
+    left: 240px;
+}
+#todo-case #btn-case{
+    border:none;
+    border-bottom: 1px solid black;
+    position: relative;
+}
+#todo-case .case-delete-btn:hover{
+    background-color: grey;
+}
+
+#todo-case .empty{
+background-color: white;
+}
+#todo-case .case-custom-btn .finished{
+background-color: grey;
+}
+#todo-case .case-custom-btn {
+background-color: greenyellow;
+}

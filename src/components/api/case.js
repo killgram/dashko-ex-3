@@ -1,6 +1,4 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { checkCase } from '../../actions/api/addCaseAction'
 
 import './case.css'
 
@@ -18,9 +16,90 @@ export class Case extends React.Component {
     this.props.addCase(this.state.case, this.props.uid)
   }
 
+  onCaseclick = (e) => {
+    e.preventDefault()
+  }
+
+  deleteCaseBtn = (e) => {
+    e.preventDefault()
+  }
+
   setCaseBtn = (data) => {
     return data.map((item) => {
-      return <button key={item.case_id}>{item.case_value}</button>
+      if (item.isEmpty) {
+        return (
+          <div key={item.case_id} id="btn-case">
+            <button
+              // key={item.case_id}
+              className="btn btn-primary-light case-custom-btn empty"
+              onClick={this.onCaseclick}
+            >
+              {item.case_value}
+            </button>
+            <button
+              className="btn btn-primary-light case-delete-btn"
+              onClick={this.deleteCaseBtn}
+            >
+              X
+            </button>
+          </div>
+        )
+      }
+      if (item.isFinished) {
+        return (
+          <div key={item.case_id} id="btn-case">
+            <button
+              // key={item.case_id}
+              className="btn btn-primary-light case-custom-btn finished"
+              onClick={this.onCaseclick}
+            >
+              {item.case_value}
+            </button>
+            <button
+              className="btn btn-primary-light case-delete-btn"
+              onClick={this.deleteCaseBtn}
+            >
+              X
+            </button>
+          </div>
+        )
+      }
+      if (!item.isEmpty && item.isFinished) {
+        return (
+          <div key={item.case_id} id="btn-case">
+            <button
+              // key={item.case_id}
+              className="btn btn-primary-light case-custom-btn"
+              onClick={this.onCaseclick}
+            >
+              {item.case_value}
+            </button>
+            <button
+              className="btn btn-primary-light case-delete-btn"
+              onClick={this.deleteCaseBtn}
+            >
+              X
+            </button>
+          </div>
+        )
+      }
+      // return (
+      //   <div key={item.case_id} id="btn-case">
+      //     <button
+      //       // key={item.case_id}
+      //       className="btn btn-primary-light case-custom-btn"
+      //       onClick={this.onCaseclick}
+      //     >
+      //       {item.case_value}
+      //     </button>
+      //     <button
+      //       className="btn btn-primary-light case-delete-btn"
+      //       onClick={this.deleteCaseBtn}
+      //     >
+      //       X
+      //     </button>
+      //   </div>
+      // )
     })
   }
 

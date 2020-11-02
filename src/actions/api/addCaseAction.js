@@ -13,7 +13,7 @@ export function addCase(setCase, letUid) {
       .add({
         uid: letUid,
         case_value: setCase,
-        esEmpty: true,
+        isEmpty: true,
         isFinished: false,
       })
       .then(function (docRef) {
