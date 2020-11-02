@@ -54,12 +54,12 @@
     background-color: grey;
 }
 
-#todo-case .empty{
+#todo-case .btn.empty{
 background-color: white;
 }
-#todo-case .case-custom-btn .finished{
+#todo-case .case-custom-btn.finished{
 background-color: grey;
 }
-#todo-case .case-custom-btn {
+#todo-case .btn.notfinished{
 background-color: greenyellow;
 }
