@@ -1,4 +1,5 @@
 import { LOG_OUT } from '../login/loginAction'
+import { CHECK_CASE } from '../api/addCaseAction'
 var firebase = require('firebase')
 
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
@@ -20,6 +21,10 @@ export function handleLogout() {
           type: LOG_OUT,
           isLogin: false,
           regLogin: false,
+        })
+        dispatch({
+          type: CHECK_CASE,
+          caseData: [],
         })
       })
   }

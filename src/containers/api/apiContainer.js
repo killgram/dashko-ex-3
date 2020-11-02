@@ -10,7 +10,7 @@ class ApiContainer extends React.Component {
     return (
       <Route exact path="/main">
         <NavContainer username={localStorage.getItem('user')} />
-        <TodoContainer />
+        <TodoContainer uid={this.props.uid} />
       </Route>
     )
   }
@@ -19,6 +19,7 @@ class ApiContainer extends React.Component {
 const mapStateToProps = (store) => {
   return {
     isLogin: store.login.isLogin,
+    uid: localStorage.getItem('uid'),
   }
 }
 

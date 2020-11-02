@@ -1,10 +1,12 @@
 import React from 'react'
+import { connect } from 'react-redux'
+import { checkCase } from '../../actions/api/addCaseAction'
 
 import './case.css'
 
 export class Case extends React.Component {
   state = {
-    case: '',
+    uid: this.props.uid,
   }
   inputCase = (e) => {
     this.setState({
@@ -15,7 +17,17 @@ export class Case extends React.Component {
     e.preventDefault()
     this.props.addCase(this.state.case, this.props.uid)
   }
+
+  setCaseBtn = (data) => {
+    return data.map((item) => {
+      return <button key={item.case_id}>{item.case_value}</button>
+    })
+  }
+
   render() {
+    let { data } = this.props
+    this.props.checkCase(data)
+
     return (
       <div>
         <div className="form-group" id="sortList">
@@ -26,7 +38,9 @@ export class Case extends React.Component {
             <option>Не завершенные</option>
           </select>
         </div>
-        <div className="form-group" id="todo-case"></div>
+        <div className="form-group" id="todo-case">
+          {this.setCaseBtn(data)}
+        </div>
         <div className="form-group" id="add-todo">
           <input
             type="text"
