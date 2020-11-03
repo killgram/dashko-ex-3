@@ -1,30 +1,27 @@
 import React from 'react'
-import $ from 'jquery'
-import { Modal } from './modal'
-
+import { AddModal } from './addmodal'
 import './case.css'
 
 export class Case extends React.Component {
   state = {
     uid: this.props.uid,
-    show: false,
+    case: '',
+    disabledBtn: true,
   }
 
   inputCase = (e) => {
     this.setState({
       case: e.currentTarget.value,
+      disabledBtn: false,
     })
   }
   addClick = (e) => {
     e.preventDefault()
-    this.props.addCase(this.state.case, this.props.uid)
+    // this.props.addCase(this.state.case, this.props.uid)
   }
 
   onCaseclick = (e) => {
     e.preventDefault()
-    this.setState({
-      show: true,
-    })
   }
 
   deleteCaseBtn = (e) => {
@@ -33,72 +30,48 @@ export class Case extends React.Component {
 
   setCaseBtn = (data) => {
     return data.map((item) => {
-      if (item.isFinished) {
-        return (
-          <div key={item.case_id} id="btn-case">
-            <button
-              className="btn btn-primary-light case-custom-btn finished"
-              onClick={this.onCaseclick}
-            >
-              {item.case_value}
-            </button>
-            <button
-              className="btn btn-primary-light case-delete-btn"
-              onClick={this.deleteCaseBtn}
-            >
-              X
-            </button>
-          </div>
-        )
+      let classStatus
+      switch (item.status) {
+        case 'empty':
+          classStatus = 'btn btn-primary-light case-custom-btn empty'
+          break
+        case 'finished':
+          classStatus = 'btn btn-primary-light case-custom-btn finished'
+          break
+        default:
+          classStatus = 'btn btn-primary-light case-custom-btn notfinished'
       }
-      if (!item.isEmpty && !item.isFinished) {
-        return (
-          <div key={item.case_id} id="btn-case">
-            <button
-              className="btn btn-primary-light case-custom-btn notfinished"
-              onClick={this.onCaseclick}
-            >
-              {item.case_value}
-            </button>
-            <button
-              className="btn btn-primary-light case-delete-btn"
-              onClick={this.deleteCaseBtn}
-            >
-              X
-            </button>
-          </div>
-        )
-      }
-      if (item.isEmpty) {
-        return (
-          <div key={item.case_id} id="btn-case">
-            <button
-              type="button"
-              className="btn btn-primary-light case-custom-btn empty"
-              onClick={this.onCaseclick}
-              data-togle="modal"
-              data-target="#smallModal"
-            >
-              {item.case_value}
-            </button>
-            <button
-              className="btn btn-primary-light case-delete-btn"
-              onClick={this.deleteCaseBtn}
-            >
-              X
-            </button>
-          </div>
-        )
-      }
+      return (
+        <div key={item.case_id} id="btn-case">
+          <button
+            type="button"
+            className={classStatus}
+            onClick={this.onCaseclick}
+          >
+            {item.case_value}
+          </button>
+          <button
+            className="btn btn-primary-light case-delete-btn"
+            onClick={this.deleteCaseBtn}
+          >
+            X
+          </button>
+        </div>
+      )
     })
   }
 
   render() {
     let { data } = this.props
     this.props.checkCase(data)
-
+    let val = this.state.case
+    if (this.state.case === '') {
+      this.state.disabledBtn = true
+    }
     return (
       <div>
+        <AddModal usage="addCase" val={val} />
+
         <div className="form-group" id="sortList">
           <select className="form-control" id="selectSort">
             <option>Все</option>
@@ -109,36 +82,7 @@ export class Case extends React.Component {
         </div>
         <div className="form-group" id="todo-case">
           {this.setCaseBtn(data)}
-
-          <div
-            className="modal fade"
-            id="smallModal"
-            tabIndex="-1"
-            role="dialog"
-            aria-labelledby="modalLabelSmall"
-            aria-hidden="true"
-          >
-            <div className="modal-dialog modal-sm">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h4 className="modal-title" id="modalLabelSmall">
-                    Кроха
-                  </h4>
-                  <button
-                    type="button"
-                    className="close"
-                    data-dismiss="modal"
-                    aria-label="Закрыть"
-                  >
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                </div>
-                <div className="modal-body">Еще менье текст</div>
-              </div>
-            </div>
-          </div>
         </div>
-
         <div className="form-group" id="add-todo">
           <input
             type="text"
@@ -149,9 +93,12 @@ export class Case extends React.Component {
           ></input>
         </div>
         <button
+          data-toggle="modal"
+          data-target="#addCaseModal"
           className="btn btn-outline-dark"
           id="add-case"
           onClick={this.addClick}
+          disabled={this.state.disabledBtn}
         >
           Добавить список
         </button>

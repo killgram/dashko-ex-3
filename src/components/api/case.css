@@ -51,7 +51,7 @@
     position: relative;
 }
 #todo-case .case-delete-btn:hover{
-    background-color: grey;
+    background-color: silver;
 }
 
 #todo-case .btn.empty{

@@ -13,8 +13,7 @@ export function addCase(setCase, letUid) {
       .add({
         uid: letUid,
         case_value: setCase,
-        isEmpty: true,
-        isFinished: false,
+        status: 'empty',
       })
       .then(function (docRef) {
         db.collection('case')
@@ -33,8 +32,7 @@ export function addCase(setCase, letUid) {
                 dispatch({
                   type: ADD_SUCCESS,
                   caseData: data,
-                  isEmpty: true,
-                  isFinished: false,
+                  status: 'empty',
                 })
               })
 

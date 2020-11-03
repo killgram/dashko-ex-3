@@ -14,11 +14,13 @@ export function addCaseReducer(state = initialState, action) {
       return {
         ...state,
         caseData: action.caseData,
+        status: action.status,
       }
     case CHECK_CASE:
       return {
         ...state,
         caseData: action.caseData,
+        status: action.status,
       }
     default:
       return state
