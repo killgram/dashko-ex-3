@@ -1,5 +1,7 @@
 import { LOG_OUT } from '../login/loginAction'
 import { CHECK_CASE } from '../api/addCaseAction'
+import { CLEAR_TASK_TABLE } from '../api/chooseCase'
+
 var firebase = require('firebase')
 
 export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
@@ -24,6 +26,10 @@ export function handleLogout() {
         })
         dispatch({
           type: CHECK_CASE,
+          caseData: [],
+        })
+        dispatch({
+          type: CLEAR_TASK_TABLE,
           caseData: [],
         })
       })

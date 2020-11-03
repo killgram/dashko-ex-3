@@ -17,11 +17,12 @@ export class Case extends React.Component {
   }
   addClick = (e) => {
     e.preventDefault()
-    // this.props.addCase(this.state.case, this.props.uid)
+    this.props.addCase(this.state.case, this.props.uid)
   }
 
   onCaseclick = (e) => {
     e.preventDefault()
+    this.props.selectCase(e.target.innerText)
   }
 
   deleteCaseBtn = (e) => {
@@ -80,7 +81,7 @@ export class Case extends React.Component {
             <option>Не завершенные</option>
           </select>
         </div>
-        <div className="form-group" id="todo-case">
+        <div className="form-group overflow-auto" id="todo-case">
           {this.setCaseBtn(data)}
         </div>
         <div className="form-group" id="add-todo">

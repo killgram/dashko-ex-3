@@ -29,6 +29,9 @@
     margin-left: 120px;
     margin-top:5px
 }
+#todo-case{
+    overflow-x: hidden;
+}
 #todo-case .case-custom-btn{
     width:100%;
     margin:0;
@@ -44,15 +47,19 @@
     font-size: 12px;
     position: absolute;
     left: 240px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
 #todo-case #btn-case{
     border:none;
     border-bottom: 1px solid black;
     position: relative;
 }
-#todo-case .case-delete-btn:hover{
+/* #todo-case .case-delete-btn:hover{
     background-color: silver;
-}
+} */
 
 #todo-case .btn.empty{
 background-color: white;

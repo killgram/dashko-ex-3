@@ -1,13 +1,120 @@
 import React from 'react'
+import { AddModal } from './addmodal'
 
 import './tasks.css'
 
 export class Tasks extends React.Component {
+  state = {
+    disabledBtn: true,
+    task_value: '',
+    ckeck_quickly: false,
+  }
+
+  deleteBtn = (e) => {
+    e.preventDefault()
+  }
+
+  noTaskTarget = () => {
+    return <div>Доделать блок для отображения, если кейс не выбран</div>
+  }
+
+  createTask = (data) => {
+    return data.map((item) => {
+      let task_timestamp = item.create_time
+      let st
+      let date = new Date(task_timestamp).toLocaleDateString('en-GB')
+      let time = new Date(task_timestamp).toLocaleTimeString('en-GB')
+      switch (item.task_quickly) {
+        case false:
+          st = 'ne_ochen_srocnoe_delo'
+          break
+        case true:
+          st = 'krasniy_krug'
+          break
+        default:
+          return
+      }
+      return (
+        <div key={item.task_id} className="row" id="tasks-id">
+          <div>
+            <input type="checkbox" id="checkbox_task"></input>
+          </div>
+          <div id="task_main_part" className="row align-items-center">
+            <div className={st}></div>
+            <label id="task_value">{item.task_value}</label>
+            <label id="task_time" className="ml-auto">
+              {date} {time}
+            </label>
+            <button
+              className="btn btn-primary-light case-delete-btn justify-content-end"
+              onClick={this.deleteBtn}
+            >
+              X
+            </button>
+          </div>
+        </div>
+      )
+    })
+  }
+
+  addTask = (e) => {
+    e.preventDefault()
+    let time = Date.now()
+    let data = {
+      case_id: this.props.case_id,
+      task_value: this.state.task_value,
+      task_quickly: this.state.ckeck_quickly,
+      create_time: time,
+      task_check: false,
+    }
+    this.props.addTask(data)
+  }
+
+  inputTask = (e) => {
+    this.setState({
+      task_value: e.currentTarget.value,
+    })
+  }
+  checkboxChange = () => {
+    switch (this.state.ckeck_quickly) {
+      case false:
+        this.setState({
+          ckeck_quickly: true,
+        })
+        break
+      case true:
+        this.setState({
+          ckeck_quickly: false,
+        })
+        break
+      default:
+        return
+    }
+  }
+
   render() {
+    let { case_id, case_value, data } = this.props
+    let title
+
+    if (case_value) {
+      title = case_value
+    } else {
+      title = 'Выберите список'
+    }
+
+    if (case_id !== '') {
+      this.state.disabledBtn = false
+    }
+
+    let val = this.state.task_value
     return (
       <div>
-        <h4>Название списка дел</h4>
-        <div className="form-group" id="todo-tasks"></div>
+        <AddModal usage="addTask" val={val} case_name={case_value} />
+
+        <h4>{title}</h4>
+        <div className="form-group overflow-auto" id="todo-tasks">
+          {case_id != 0 ? this.createTask(data) : this.noTaskTarget()}
+        </div>
         <div className="form-group" id="add-task">
           <div className="row form-group mx-auto" id="row-add">
             <input
@@ -15,12 +122,27 @@ export class Tasks extends React.Component {
               className="form-control"
               id="input-task"
               placeholder="Введите Дело"
+              disabled={this.state.disabledBtn}
+              onChange={this.inputTask}
             ></input>
             <div className="form-group form-check">
-              <input type="checkbox" className="form-check-input"></input>
+              <input
+                type="checkbox"
+                className="form-check-input"
+                disabled={this.state.disabledBtn}
+                onChange={this.checkboxChange}
+                checked={this.state.ckeck_quickly}
+              ></input>
               <label className="form-check-label">Срочное</label>
             </div>
-            <button className="btn btn-outline-dark" id="add-btn">
+            <button
+              className="btn btn-outline-dark"
+              data-toggle="modal"
+              data-target="#addTaskModal"
+              id="add-btn"
+              disabled={this.state.disabledBtn}
+              onClick={this.addTask}
+            >
               Добавить дело
             </button>
           </div>

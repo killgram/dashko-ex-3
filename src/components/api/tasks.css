@@ -13,14 +13,48 @@ h4{
 }
 #input-task{
     width:250px;
-    text-align: center;
 }
 .form-check{
     margin: auto;
 }
+
 #row-add{
     margin-top:15px
 }
 #add-btn{
     border-radius: 30px;
+}
+.krasniy_krug{
+    height: 15px;
+    width: 15px;
+    background-color: red;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+    position: absolute;
+}
+#checkbox_task{
+    margin-left: 20px;
+    margin-top: 15px;
+    width: 20px;
+    height: 20px;
+}
+#task_main_part{
+    border: 1px solid black;
+    width: 520px;
+    margin: 5px 10px 10px 15px;
+
+}
+#task_value{
+    width:300px;
+    overflow: auto;
+    padding-left: 35px;
+
+}
+#task_main_part label{
+    margin: 0;
+}
+#tasks-id{
+    margin: 0;
 }
