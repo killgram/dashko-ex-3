@@ -92,10 +92,9 @@ export class Case extends React.Component {
         />
         <div className="form-group" id="sortList">
           <select className="form-control" id="selectSort">
+            <option>Неисполненные</option>
+            <option>Исполненные</option>
             <option>Все</option>
-            <option>Пустые</option>
-            <option>Завершенные</option>
-            <option>Не завершенные</option>
           </select>
         </div>
         <div className="form-group overflow-auto" id="todo-case">

@@ -85,8 +85,6 @@ export class Tasks extends React.Component {
     }
     this.props.addTask(data)
     let input = document.getElementById('input-task')
-    // let check_q = document.getElementById('checkbox_quick')
-    // check_q.checked = false
     this.state.ckeck_quickly = false
     input.value = ''
   }

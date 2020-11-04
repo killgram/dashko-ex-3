@@ -20,6 +20,7 @@ export function addCase(setCase, letUid) {
           .doc(docRef.id)
           .onSnapshot(function (doc) {
             db.collection('case')
+              .orderBy('case_value')
               .where('uid', '==', localStorage.getItem('uid'))
               .get()
               .then(function (querySnapshot) {
@@ -51,6 +52,7 @@ export function checkCase(items) {
   return function (dispatch) {
     db.collection('case')
       .where('uid', '==', localStorage.getItem('uid'))
+      .orderBy('case_value')
       .get()
       .then(function (querySnapshot) {
         if (items.length === 0) {

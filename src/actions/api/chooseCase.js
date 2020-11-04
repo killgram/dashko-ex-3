@@ -89,6 +89,7 @@ export function deleteCase(case_data) {
       type: DELETE_CASE_REQUEST,
     })
     db.collection('case').doc(case_data).delete()
+
     db.collection('task')
       .where('case_id', '==', case_data)
       .get()
@@ -103,15 +104,17 @@ export function deleteCase(case_data) {
       case_value: '',
       isOpen: false,
     })
-    db.collection('case').onSnapshot(function (querySnapshot) {
-      let data = []
-      querySnapshot.forEach(function (doc) {
-        data.push(doc.data())
+    db.collection('case')
+      .orderBy('case_value')
+      .onSnapshot(function (querySnapshot) {
+        let data = []
+        querySnapshot.forEach(function (doc) {
+          data.push(doc.data())
+        })
+        dispatch({
+          type: CHECK_CASE,
+          caseData: data,
+        })
       })
-      dispatch({
-        type: CHECK_CASE,
-        caseData: data,
-      })
-    })
   }
 }
