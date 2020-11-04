@@ -32,6 +32,10 @@ export class Tasks extends React.Component {
     )
   }
 
+  changeTaskStatus = (id, status) => {
+    this.props.changeStatusTask(id, status)
+  }
+
   createTask = (data) => {
     return data.map((item) => {
       let task_timestamp = item.create_time
@@ -51,7 +55,14 @@ export class Tasks extends React.Component {
       return (
         <div key={item.task_id} className="row" id="tasks-id">
           <div>
-            <input type="checkbox" id="checkbox_task"></input>
+            <input
+              type="checkbox"
+              id="checkbox_task"
+              onChange={() =>
+                this.changeTaskStatus(item.task_id, item.task_check)
+              }
+              checked={item.task_check}
+            ></input>
           </div>
           <div id="task_main_part" className="row align-items-center">
             <div className={st}></div>

@@ -31,7 +31,13 @@ export function chooseCaseReducer(state = initialState, action) {
         case_value: action.case_value,
       }
     case CLEAR_TASK_TABLE:
-      return { ...state, case_id: '', taskData: [], case_value: '' }
+      return {
+        ...state,
+        case_id: '',
+        taskData: [],
+        case_value: '',
+        isOpen: false,
+      }
     case DELETE_TASK_REQUEST:
       return { ...state }
     case DELETE_TASK_SUCCESS:

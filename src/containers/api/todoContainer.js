@@ -11,6 +11,7 @@ import {
   deleteTask,
   deleteCase,
 } from '../../actions/api/chooseCase'
+import { changeStatusTask } from '../../actions/api/taskDoneAction'
 
 import './todoContainer.css'
 
@@ -26,6 +27,8 @@ class TodoContainer extends React.Component {
       deleteTask,
       deleteCase,
       isOpen,
+      changeStatusTask,
+      task_status,
     } = this.props
     return (
       <div className="container">
@@ -50,6 +53,8 @@ class TodoContainer extends React.Component {
                 addTask={addTask}
                 deleteTask={deleteTask}
                 isOpen={isOpen}
+                changeStatusTask={changeStatusTask}
+                task_status={task_status}
               />
             </div>
           </div>
@@ -65,6 +70,7 @@ const mapStateToProps = (store) => {
     uid: localStorage.getItem('uid'),
     taskdata: store.choosecase,
     isOpen: store.choosecase.isOpen,
+    task_status: store.taskstatus.task_status_l,
   }
 }
 
@@ -76,6 +82,7 @@ const mapDispatchToProps = (dispatch) => {
     addTask: (data) => dispatch(addTask(data)),
     deleteTask: (task) => dispatch(deleteTask(task)),
     deleteCase: (case_data) => dispatch(deleteCase(case_data)),
+    changeStatusTask: (id, status) => dispatch(changeStatusTask(id, status)),
   }
 }
 

@@ -30,6 +30,33 @@ export function selectCase(case_id) {
           .onSnapshot(function (querySnapshot) {
             let data = []
             querySnapshot.forEach(function (doc) {
+              db.collection('task')
+                .where('case_id', '==', doc.data().case_id)
+                .get()
+                .then(function (querySnapshot) {
+                  let count = 0
+                  let check = 0
+                  querySnapshot.forEach(function (doc) {
+                    if (doc.data().task_check) {
+                      check++
+                    }
+                    count++
+                  })
+                  if (count === 0) {
+                    db.collection('case').doc(doc.data().case_id).update({
+                      status: 'empty',
+                    })
+                  } else if (count === check) {
+                    db.collection('case').doc(doc.data().case_id).update({
+                      status: 'finished',
+                    })
+                  } else {
+                    db.collection('case').doc(doc.data().case_id).update({
+                      status: 'notfinished',
+                    })
+                  }
+                })
+
               data.push(doc.data())
             })
 
@@ -80,6 +107,41 @@ export function deleteTask(task) {
     dispatch({
       type: DELETE_TASK_SUCCESS,
     })
+
+    db.collection('case')
+      .where('uid', '==', localStorage.getItem('uid'))
+      .orderBy('case_value')
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          db.collection('task')
+            .where('case_id', '==', doc.data().case_id)
+            .get()
+            .then(function (querySnapshot) {
+              let count = 0
+              let check = 0
+              querySnapshot.forEach(function (doc) {
+                if (doc.data().task_check) {
+                  check++
+                }
+                count++
+              })
+              if (count === 0) {
+                db.collection('case').doc(doc.data().case_id).update({
+                  status: 'empty',
+                })
+              } else if (count === check) {
+                db.collection('case').doc(doc.data().case_id).update({
+                  status: 'finished',
+                })
+              } else {
+                db.collection('case').doc(doc.data().case_id).update({
+                  status: 'notfinished',
+                })
+              }
+            })
+        })
+      })
   }
 }
 

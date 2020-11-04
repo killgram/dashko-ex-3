@@ -4,6 +4,7 @@ import { registerReducer } from './register/register'
 import { logOutReducer } from './logout/logout'
 import { addCaseReducer } from './api/addCase'
 import { chooseCaseReducer } from './api/chooseCaseReducer'
+import { changeTaskStatusReducer } from './api/changeTaskStatusReducer'
 
 export const rootReducer = combineReducers({
   login: loginReducer,
@@ -11,4 +12,5 @@ export const rootReducer = combineReducers({
   logout: logOutReducer,
   addcase: addCaseReducer,
   choosecase: chooseCaseReducer,
+  taskstatus: changeTaskStatusReducer,
 })
