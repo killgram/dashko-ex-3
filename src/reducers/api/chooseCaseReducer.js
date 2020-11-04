@@ -1,6 +1,10 @@
 import { CHOOSE_CASE } from '../../actions/api/chooseCase'
 import { CHOOSE_CASE_SUCCESS } from '../../actions/api/chooseCase'
 import { CLEAR_TASK_TABLE } from '../../actions/api/chooseCase'
+import {
+  DELETE_TASK_REQUEST,
+  DELETE_TASK_SUCCESS,
+} from '../../actions/api/chooseCase'
 
 const initialState = {
   case_id: '',
@@ -25,7 +29,11 @@ export function chooseCaseReducer(state = initialState, action) {
       }
     case CLEAR_TASK_TABLE:
       return { ...state, case_id: '', taskData: [], case_value: '' }
+    case DELETE_TASK_REQUEST:
+      return { ...state }
     default:
+    case DELETE_TASK_SUCCESS:
+      return { ...state }
       return state
   }
 }

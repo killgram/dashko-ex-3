@@ -5,7 +5,7 @@ import { Case } from '../../components/api/case'
 import { Tasks } from '../../components/api/tasks'
 
 import { addCase, checkCase } from '../../actions/api/addCaseAction'
-import { selectCase, addTask } from '../../actions/api/chooseCase'
+import { selectCase, addTask, deleteTask } from '../../actions/api/chooseCase'
 
 import './todoContainer.css'
 
@@ -18,6 +18,7 @@ class TodoContainer extends React.Component {
       selectCase,
       taskdata,
       addTask,
+      deleteTask,
     } = this.props
     return (
       <div className="container">
@@ -39,6 +40,7 @@ class TodoContainer extends React.Component {
                 case_id={taskdata.case_id}
                 case_value={taskdata.case_value}
                 addTask={addTask}
+                deleteTask={deleteTask}
               />
             </div>
           </div>
@@ -62,6 +64,7 @@ const mapDispatchToProps = (dispatch) => {
     checkCase: (items) => dispatch(checkCase(items)),
     selectCase: (case_id) => dispatch(selectCase(case_id)),
     addTask: (data) => dispatch(addTask(data)),
+    deleteTask: (task) => dispatch(deleteTask(task)),
   }
 }
 

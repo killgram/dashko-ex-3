@@ -1,5 +1,6 @@
 import React from 'react'
 import { AddModal } from './addmodal'
+import { DeleteTaskModal } from './deleteTaskModal'
 
 import './tasks.css'
 
@@ -8,14 +9,27 @@ export class Tasks extends React.Component {
     disabledBtn: true,
     task_value: '',
     ckeck_quickly: false,
+    name: '',
+    task_id: '',
   }
 
-  deleteBtn = (e) => {
+  deleteBtn = (task_value, task_id, e) => {
     e.preventDefault()
+    // console.log('work')
+    this.setState({
+      name: task_value,
+      task_id: task_id,
+    })
   }
 
   noTaskTarget = () => {
-    return <div>Доделать блок для отображения, если кейс не выбран</div>
+    return (
+      <img
+        src="https://image.freepik.com/free-photo/smiling-cheerful-redhead-girl-showing-advertisement-pointing-left_176420-19299.jpg"
+        alt="choose_case"
+        className="img-fluid"
+      ></img>
+    )
   }
 
   createTask = (data) => {
@@ -47,7 +61,9 @@ export class Tasks extends React.Component {
             </label>
             <button
               className="btn btn-primary-light case-delete-btn justify-content-end"
-              onClick={this.deleteBtn}
+              data-toggle="modal"
+              data-target="#delete_task"
+              onClick={(e) => this.deleteBtn(item.task_value, item.task_id, e)}
             >
               X
             </button>
@@ -107,9 +123,15 @@ export class Tasks extends React.Component {
     }
 
     let val = this.state.task_value
+
     return (
       <div>
         <AddModal usage="addTask" val={val} case_name={case_value} />
+        <DeleteTaskModal
+          task_name={this.state.name}
+          task_id={this.state.task_id}
+          delete={this.props.deleteTask}
+        />
 
         <h4>{title}</h4>
         <div className="form-group overflow-auto" id="todo-tasks">

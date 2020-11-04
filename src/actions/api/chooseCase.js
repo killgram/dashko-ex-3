@@ -5,6 +5,8 @@ export const CHOOSE_CASE_SUCCESS = 'CHOOSE_CASE_SUCCESS'
 export const ADD_TASK_REQUEST = 'ADD_TASK_REQUEST'
 export const ADD_TASK_SUCCESS = 'ADD_TASK_SUCCESS'
 export const CLEAR_TASK_TABLE = 'CLEAR_TASK_TABLE'
+export const DELETE_TASK_REQUEST = 'DELETE_TASK_REQUEST'
+export const DELETE_TASK_SUCCESS = 'DELETE_TASK_SUCCESS'
 
 export function selectCase(case_id) {
   return function (dispatch) {
@@ -18,6 +20,7 @@ export function selectCase(case_id) {
           case_value: case_id,
         })
         db.collection('task')
+          .orderBy('create_time', 'desc')
           .where('case_id', '==', doc.docs[0].id)
           .onSnapshot(function (querySnapshot) {
             let data = []
@@ -59,5 +62,14 @@ export function addTask(data) {
           }
         )
       })
+  }
+}
+
+export function deleteTask(task) {
+  return function (dispatch) {
+    dispatch({
+      type: DELETE_TASK_REQUEST,
+    })
+    db.collection('task').doc(task).delete()
   }
 }
