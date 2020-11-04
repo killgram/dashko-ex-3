@@ -1,5 +1,6 @@
 import React from 'react'
 import { AddModal } from './addmodal'
+import { DeleteCaseModal } from './deleteCaseModal'
 import './case.css'
 
 export class Case extends React.Component {
@@ -7,6 +8,8 @@ export class Case extends React.Component {
     uid: this.props.uid,
     case: '',
     disabledBtn: true,
+    name: '',
+    id: '',
   }
 
   inputCase = (e) => {
@@ -18,6 +21,8 @@ export class Case extends React.Component {
   addClick = (e) => {
     e.preventDefault()
     this.props.addCase(this.state.case, this.props.uid)
+    let input = document.getElementById('input-field')
+    input.value = ''
   }
 
   onCaseclick = (e) => {
@@ -25,8 +30,12 @@ export class Case extends React.Component {
     this.props.selectCase(e.target.innerText)
   }
 
-  deleteCaseBtn = (e) => {
+  deleteCaseBtn = (value, id, e) => {
     e.preventDefault()
+    this.setState({
+      name: value,
+      id: id,
+    })
   }
 
   setCaseBtn = (data) => {
@@ -53,7 +62,11 @@ export class Case extends React.Component {
           </button>
           <button
             className="btn btn-primary-light case-delete-btn"
-            onClick={this.deleteCaseBtn}
+            data-toggle="modal"
+            data-target="#delete_case"
+            onClick={(e) =>
+              this.deleteCaseBtn(item.case_value, item.case_id, e)
+            }
           >
             X
           </button>
@@ -72,7 +85,11 @@ export class Case extends React.Component {
     return (
       <div>
         <AddModal usage="addCase" val={val} />
-
+        <DeleteCaseModal
+          name={this.state.name}
+          id={this.state.id}
+          delete={this.props.deleteCase}
+        />
         <div className="form-group" id="sortList">
           <select className="form-control" id="selectSort">
             <option>Все</option>

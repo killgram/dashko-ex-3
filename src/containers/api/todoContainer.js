@@ -5,7 +5,12 @@ import { Case } from '../../components/api/case'
 import { Tasks } from '../../components/api/tasks'
 
 import { addCase, checkCase } from '../../actions/api/addCaseAction'
-import { selectCase, addTask, deleteTask } from '../../actions/api/chooseCase'
+import {
+  selectCase,
+  addTask,
+  deleteTask,
+  deleteCase,
+} from '../../actions/api/chooseCase'
 
 import './todoContainer.css'
 
@@ -19,6 +24,8 @@ class TodoContainer extends React.Component {
       taskdata,
       addTask,
       deleteTask,
+      deleteCase,
+      isOpen,
     } = this.props
     return (
       <div className="container">
@@ -31,6 +38,7 @@ class TodoContainer extends React.Component {
                 data={this.props.data}
                 checkCase={checkCase}
                 selectCase={selectCase}
+                deleteCase={deleteCase}
               />
             </div>
             <div className="form-group" id="tasks">
@@ -41,6 +49,7 @@ class TodoContainer extends React.Component {
                 case_value={taskdata.case_value}
                 addTask={addTask}
                 deleteTask={deleteTask}
+                isOpen={isOpen}
               />
             </div>
           </div>
@@ -55,6 +64,7 @@ const mapStateToProps = (store) => {
     data: store.addcase.caseData,
     uid: localStorage.getItem('uid'),
     taskdata: store.choosecase,
+    isOpen: store.choosecase.isOpen,
   }
 }
 
@@ -65,6 +75,7 @@ const mapDispatchToProps = (dispatch) => {
     selectCase: (case_id) => dispatch(selectCase(case_id)),
     addTask: (data) => dispatch(addTask(data)),
     deleteTask: (task) => dispatch(deleteTask(task)),
+    deleteCase: (case_data) => dispatch(deleteCase(case_data)),
   }
 }
 

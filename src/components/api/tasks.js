@@ -1,3 +1,4 @@
+import { check } from 'prettier'
 import React from 'react'
 import { AddModal } from './addmodal'
 import { DeleteTaskModal } from './deleteTaskModal'
@@ -15,7 +16,6 @@ export class Tasks extends React.Component {
 
   deleteBtn = (task_value, task_id, e) => {
     e.preventDefault()
-    // console.log('work')
     this.setState({
       name: task_value,
       task_id: task_id,
@@ -84,6 +84,11 @@ export class Tasks extends React.Component {
       task_check: false,
     }
     this.props.addTask(data)
+    let input = document.getElementById('input-task')
+    // let check_q = document.getElementById('checkbox_quick')
+    // check_q.checked = false
+    this.state.ckeck_quickly = false
+    input.value = ''
   }
 
   inputTask = (e) => {
@@ -110,20 +115,14 @@ export class Tasks extends React.Component {
 
   render() {
     let { case_id, case_value, data } = this.props
-    let title
 
-    if (case_value) {
-      title = case_value
-    } else {
-      title = 'Выберите список'
-    }
-
-    if (case_id !== '') {
+    if (this.props.isOpen) {
       this.state.disabledBtn = false
+    } else {
+      this.state.disabledBtn = true
     }
 
     let val = this.state.task_value
-
     return (
       <div>
         <AddModal usage="addTask" val={val} case_name={case_value} />
@@ -133,9 +132,9 @@ export class Tasks extends React.Component {
           delete={this.props.deleteTask}
         />
 
-        <h4>{title}</h4>
+        <h4>{this.props.isOpen ? case_value : 'Выберите список'}</h4>
         <div className="form-group overflow-auto" id="todo-tasks">
-          {case_id != 0 ? this.createTask(data) : this.noTaskTarget()}
+          {this.props.isOpen ? this.createTask(data) : this.noTaskTarget()}
         </div>
         <div className="form-group" id="add-task">
           <div className="row form-group mx-auto" id="row-add">
@@ -150,6 +149,7 @@ export class Tasks extends React.Component {
             <div className="form-group form-check">
               <input
                 type="checkbox"
+                id="checkbox_quick"
                 className="form-check-input"
                 disabled={this.state.disabledBtn}
                 onChange={this.checkboxChange}

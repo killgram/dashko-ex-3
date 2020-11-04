@@ -34,16 +34,15 @@ export function addCase(setCase, letUid) {
                   status: 'empty',
                 })
               })
-
-            db.collection('case').doc(docRef.id).set(
-              {
-                case_id: docRef.id,
-              },
-              {
-                merge: true,
-              }
-            )
           })
+        db.collection('case').doc(docRef.id).set(
+          {
+            case_id: docRef.id,
+          },
+          {
+            merge: true,
+          }
+        )
       })
   }
 }
