@@ -91,9 +91,28 @@ export class Case extends React.Component {
       this.state.disabledBtn = true
     }
 
-    for (let v in data) {
-      console.log(data[v].status)
+    switch (this.state.select_value) {
+      case 'proceed':
+        let arr = []
+        for (let v in data) {
+          if (data[v].status == 'empty' || data[v].status == 'notfinished') {
+            arr.push(data[v])
+          }
+        }
+        data = arr
+        break
+      case 'done':
+        let arr1 = []
+        for (let v in data) {
+          if (data[v].status == 'finished') {
+            arr1.push(data[v])
+          }
+        }
+        data = arr1
+        break
+      default:
     }
+
     return (
       <div>
         <AddModal usage="addCase" val={val} />
