@@ -168,6 +168,7 @@ export function deleteCase(case_data) {
     })
     db.collection('case')
       .orderBy('case_value')
+      .where('uid', '==', localStorage.getItem('uid'))
       .onSnapshot(function (querySnapshot) {
         let data = []
         querySnapshot.forEach(function (doc) {

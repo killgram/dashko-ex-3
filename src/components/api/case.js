@@ -10,6 +10,7 @@ export class Case extends React.Component {
     disabledBtn: true,
     name: '',
     id: '',
+    select_value: 'all',
   }
 
   inputCase = (e) => {
@@ -39,6 +40,9 @@ export class Case extends React.Component {
   }
 
   setCaseBtn = (data) => {
+    if (!data) {
+      return
+    }
     return data.map((item) => {
       let classStatus
       switch (item.status) {
@@ -75,12 +79,20 @@ export class Case extends React.Component {
     })
   }
 
+  selectChange = (event) => {
+    this.setState({ select_value: event.target.value })
+  }
+
   render() {
     let { data } = this.props
     this.props.checkCase(data)
     let val = this.state.case
     if (this.state.case === '') {
       this.state.disabledBtn = true
+    }
+
+    for (let v in data) {
+      console.log(data[v].status)
     }
     return (
       <div>
@@ -91,10 +103,15 @@ export class Case extends React.Component {
           delete={this.props.deleteCase}
         />
         <div className="form-group" id="sortList">
-          <select className="form-control" id="selectSort">
-            <option>Неисполненные</option>
-            <option>Исполненные</option>
-            <option>Все</option>
+          <select
+            className="form-control"
+            id="selectSort"
+            value={this.state.select_value}
+            onChange={this.selectChange}
+          >
+            <option value="all">Все</option>
+            <option value="proceed">Неисполненные</option>
+            <option value="done">Исполненные</option>
           </select>
         </div>
         <div className="form-group overflow-auto" id="todo-case">

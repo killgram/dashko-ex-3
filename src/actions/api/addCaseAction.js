@@ -48,71 +48,21 @@ export function addCase(setCase, letUid) {
   }
 }
 
-// export function checkCase(items) {
-//   return function (dispatch) {
-//     db.collection('case')
-//       .where('uid', '==', localStorage.getItem('uid'))
-//       .orderBy('case_value')
-//       .get()
-//       .then(function (querySnapshot) {
-//         if (items.length === 0) {
-//           let arr = []
-//           querySnapshot.forEach(function (doc) {
-//             db.collection('task')
-//               .where('case_id', '==', doc.data().case_id)
-//               .get()
-//               .then(function (querySnapshot) {
-//                 let count = 0
-//                 let check = 0
-//                 querySnapshot.forEach(function (doc) {
-//                   if (doc.data().task_check) {
-//                     check++
-//                   }
-//                   count++
-//                 })
-//                 if (count === 0) {
-//                   db.collection('case').doc(doc.data().case_id).update({
-//                     status: 'empty',
-//                   })
-//                 } else if (count === check) {
-//                   db.collection('case').doc(doc.data().case_id).update({
-//                     status: 'finished',
-//                   })
-//                 } else {
-//                   db.collection('case').doc(doc.data().case_id).update({
-//                     status: 'notfinished',
-//                   })
-//                 }
-//               })
-
-//             arr.push(doc.data())
-//           })
-//           for (let v in arr) {
-//             console.log(arr[v].case_value, '', arr[v].status)
-//           }
-//           if (arr.length !== 0) {
-//             dispatch({
-//               type: CHECK_CASE,
-//               caseData: arr,
-//             })
-//           } else {
-//             dispatch({
-//               type: CHECK_CASE,
-//             })
-//           }
-//         }
-//       })
-//   }
-// }
 export function checkCase(items) {
   return function (dispatch) {
     db.collection('case')
       .where('uid', '==', localStorage.getItem('uid'))
       .orderBy('case_value')
       .onSnapshot(function (querySnapshot) {
+        if (!items) {
+          return
+        }
         if (items.length === 0) {
           let arr = []
           querySnapshot.forEach(function (doc) {
+            if (!doc.data().case_id) {
+              return
+            }
             db.collection('task')
               .where('case_id', '==', doc.data().case_id)
               .get()
